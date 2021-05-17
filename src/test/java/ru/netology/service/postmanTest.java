@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 
 public class postmanTest {
@@ -22,6 +23,10 @@ public class postmanTest {
     .then()
     .statusCode(200)
 
-    .body("data", equalTo(testString));
+    .body("data", equalTo(testString))
+    .header("args", equalTo(null)) //thing is, there is no header like that, so ofk it'll be null
+    .header("content-length", greaterThanOrEqualTo("10"))
+    .header("Content-Type", equalTo("application/json; charset=utf-8"))
+    .body("url", equalTo("https://postman-echo.com/post"));
     }
 }
